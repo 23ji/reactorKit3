@@ -14,29 +14,27 @@ final class ViewReactor: Reactor {
  
   //사용자의 행동
   enum Action {
-    case initialize
+    case buttonTapped
   }
  
   //상태 변화
   enum Mutation {
-    case setIsInitialized(Bool)
+    case increaseCount
   }
   
   //뷰 상태
   struct State {
-    var isInitialized: Bool
+    var buttonTapCount: Int = 0
   }
   
   //초기 상태
-  let initialState: State = State(isInitialized: false)
+  let initialState: State = State()
   
   
   func mutate(action: Action) -> Observable<Mutation> {
     switch action {
-    case .initialize:
-      return .concat([
-        .just(.setIsInitialized(true))
-      ])
+    case .buttonTapped:
+        .just(.increaseCount)
     }
   }
   
@@ -44,8 +42,8 @@ final class ViewReactor: Reactor {
   func reduce(state: State, mutation: Mutation) -> State {
     var newState = state
     switch mutation {
-    case let .setIsInitialized(value):
-      newState.isInitialized = value
+    case .increaseCount:
+      newState.buttonTapCount += 1
     }
     return newState
   }
