@@ -29,4 +29,25 @@ final class ViewReactor: Reactor {
   
   //초기 상태
   let initialState: State = State(isInitialized: false)
+  
+  
+  func mutate(action: Action) -> Observable<Mutation> {
+    switch action {
+    case .initialize:
+      return .concat([
+        .just(.setIsInitialized(true)),
+        .just(.setIsInitialized(false))
+      ])
+    }
+  }
+  
+  
+  func reduce(state: State, mutation: Mutation) -> State {
+    var newState = state
+    switch mutation {
+    case let .setIsInitialized(value):
+      newState.isInitialized = value
+    }
+    return newState
+  }
 }
