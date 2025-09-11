@@ -13,17 +13,21 @@ import UIKit
 final class ViewController: UIViewController, View {
   
   var disposeBag = DisposeBag()
-
+  var button = UIButton(type: .system)
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     self.view.backgroundColor = .red
+    
+    self.button.setTitle("클릭!", for: .normal)
+    self.button.center = self.view.center
+    self.button.sizeToFit()
+    self.view.addSubview(self.button)
   }
   
   
   func bind(reactor: ViewReactor) {
-    // 액션 보내기 (화면 뜨면 initialize 실행)
-    reactor.action.onNext(.initialize)
-    print("isInitialized :", reactor.initialState.isInitialized)
+    // 액션 보내기
 
     // state 구독
     reactor.state.map { $0.isInitialized }
