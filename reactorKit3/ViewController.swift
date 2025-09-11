@@ -7,6 +7,7 @@
 
 import ReactorKit
 import RxSwift
+import RxCocoa
 
 import UIKit
 
@@ -28,11 +29,14 @@ final class ViewController: UIViewController, View {
   
   func bind(reactor: ViewReactor) {
     // 액션 보내기
-
+    self.button.rx.tap
+      .map { ViewReactor.Action.buttonTapped }
+      .bind(to: reactor.action)
+      .disposed(by: disposeBag)
     // state 구독
-    reactor.state.map { $0.isInitialized }
-      .subscribe(onNext: { value in
-        print("🔥 isInitialized changed to:", value)
+    reactor.state.map { $0.buttonTapCount }
+      .subscribe(onNext: { count in
+        print("버튼이 \(count)번 눌림")
       })
       .disposed(by: disposeBag)
   }

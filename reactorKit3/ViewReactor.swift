@@ -28,13 +28,13 @@ final class ViewReactor: Reactor {
   }
   
   //초기 상태
-  let initialState: State = State()
+  let initialState = State()
   
   
   func mutate(action: Action) -> Observable<Mutation> {
     switch action {
     case .buttonTapped:
-        .just(.increaseCount)
+        return .just(.increaseCount)
     }
   }
   
