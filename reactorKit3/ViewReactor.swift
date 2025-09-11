@@ -35,8 +35,7 @@ final class ViewReactor: Reactor {
     switch action {
     case .initialize:
       return .concat([
-        .just(.setIsInitialized(true)),
-        .just(.setIsInitialized(false))
+        .just(.setIsInitialized(true))
       ])
     }
   }

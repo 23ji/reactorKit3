@@ -22,10 +22,12 @@ final class ViewController: UIViewController, View {
   
   func bind(reactor: ViewReactor) {
     reactor.action.onNext(.initialize)
+    print("isInitialized :", reactor.initialState.isInitialized)
+
     
     reactor.state.map { $0.isInitialized }
       .subscribe(onNext: { value in
-        print("isInitialized:", value)
+        print("🔥 isInitialized changed to:", value)
       })
       .disposed(by: disposeBag)
   }

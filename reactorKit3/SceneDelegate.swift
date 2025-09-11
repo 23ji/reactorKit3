@@ -16,7 +16,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     guard let windowScene = (scene as? UIWindowScene) else { return }
     
     let window = UIWindow(windowScene: windowScene)
-    window.rootViewController = ViewController() // 나의 첫 화면 뷰컨
+    window.windowScene = windowScene
+    
+    let vc = ViewController()
+    vc.reactor = ViewReactor() // reactor 주입
+    
+    window.rootViewController = vc
+    
     window.makeKeyAndVisible()
     self.window = window
   }
